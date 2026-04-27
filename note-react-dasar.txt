@@ -1,0 +1,545 @@
+component 
+- saat belajar react, kita harus terbiasa dengan istilah component
+- component adalah kumplan kode yang bisa digunakan secara independen
+- component bisa berisikan satu atau lebih HTML element, kode javascript dan css
+- tidak ada aturan harus seberapa besar atau kecil sebuah component
+- anggap saja seperti membuat function, kita bisa membuat function yang besar atau kecil, karena tujuan function adalah agar bisa digunakan secara berulang-ulang, begitu juga tujuan dari component
+- struktur component mirip seperti DOM (document object model), dimana kita bisa membuat component di dalam component lain
+
+jsx
+- react menggunakan JSX ketika membuat component
+- jsx (javascript XML atau javascript syntax extension), adalah kombinasi javascript dan XML (HTML), dimana kita bisa membuat component dengan mudah menggunakan kode XML, dan javascript dalam satu file
+- JSX diperkenalkan oleh Facebook di react, namun saat ini JSX sudah banyak di adopsi oleh banyak framework javscript lainnya
+
+membuat project
+- untuk membuat project react, kita akan menggunakan vite sebagai build toolnya
+- kita bisa membuat project react menggunakan beberapa perintah
+- untuk membuat project react menggunakan javscript :
+npm create vite@latest nama-aplikasi -- --template react
+- untuk membuat project react menggunaakn type script :
+npm create vite@latest nama-aplikasi -- --template react-ts
+- setelah membuat project baru, jalankan perintah : npm install
+- kemudian jalankan project dengan perintah : npm run dev (dijalankan oleh vite)
+
+membuat component 
+- biasanya component akan dibuat dalam satu file JSX dengan nama sesuai dengan nama komponen nya
+- misal kita akan membuat component bernama HelloWorld, maka kita bisa membuat file komponen HelloWorld.jsx
+- selanjutnya, kita perlu membuat default function dengan nama component nya, yaitu HelloWorld
+- return dari function tersebut adalah element UI yang akan ditampilkan
+- satu component atau function JSX hanya bisa mereturn 1 element, contoh div atau fragment,
+yang mana dalam satu div terdapat komponen lainnya seperti h1, p, dan lain lain
+
+menampilkan component
+- untuk menampilkan component, diperlukan instance dari react root
+- kita bisa membuat react root menggunakan method createRoot(element)
+- referensi : https://react.dev/reference/react-dom/client/createRoot
+- selanjutnya untuk menampilkan component di react root, kita bisa gunakan method render(component)
+- untuk membantu mencari masalah saat development, react menyediakan component StrictMode, kita bisa menggunakannya untuk menampilkan komponen di root
+- referensi strict mode : https://react.dev/reference/react/StrictMode
+
+sifat vite 
+- saat menjalankan build dengan vite, maka vite hanya mengcompile 1 file yaitu index.html
+- jika kita ingin menambahkan lebih dari satu halaman yang di compile kita bisa ubah konfigurasi vite pada file vite.config.js dan menambahkan rollupOptions (seperti yang sudah diubah di file config vite)
+- untuk menjalankan build, bisa menggunakan function useMemo('callback, [dependencies]) perintah : 'npm run build (output nya di folder dist)
+
+react component
+- react component mendukung semua elemen HTML dan SVG
+- jadi kita tidak perlu khawatir ketika membuat component, karena semua elemen pasti didukung
+- referensi : https://react.dev/reference/react-dom/components
+
+mutiple component
+- sebelumnya kita membuat satu file JSX untuk satu component
+- walaupun itu adalah praktek yang baik, tapi bukan berarti itu wajib dilakukan
+- karena component sebenarnya hanyalah sebuah function yang mengembalikan react element, oleh karena itu jika kita ingin membuat component, kita hanya cukup membuat function yang mengembalikan react element
+
+kenapa JSX
+- web dibuat menggunakan HTML, CSS dan Javascript. Biasanya kita akan menyimpan konten di HTML, desain di CSS, dan logika aplikasi di javascript. Dan biasanya kita akan simpan di file-file yang terpisah
+- tapi saat ini, web sudah lebih interaktif, seringnya konten HTML ditampilkan berdasarkan logika aplikasi di javascript
+- oleh karena itu, react melakukan logika aplikasi dan membuat konten di satu tempat yang sama, JSX
+
+mengubah HTMl ke JSX
+- saat mengubah kode HTMl ke JSX, kita tidak bisa lakukan semudah copy paste kode nya dari HTMl ke JSX
+- JSX memiliki aturan yang lebih ketat dibanding HTML, contohnya saat menggunakan tag element, wajib menggunakan tag tutup
+- misal kita tidak bisa menggunakan tag :
+<img src="">
+- sehingga kita harus tutup tag nya ketika menggunakan JSX :
+<img src="" />
+- beberapa attribute di tag element pun berbeda ketika menggunakan JSX
+
+aturan JSX
+- wajib menutup semua tag element
+- component hanya boleh mengembalikan satu element, jika kita ingin mengembalikan beberapa element, kita harus bungkus dalam parent element
+- attribute menggunakan penulisan 'camelCase'. Attribute di element JSX akan dikonversi ke variabel javscript, oleh karena itu nama attribute harus mengikuti cara pembuatan nama variabel di javascript, yaitu tidak bisa menggunakan strip '-'. Oleh karena itu, kebanyakan attribute di element JSX, akan menggunakan camelCase, contoh className (bukan class-name)
+
+jsx converter
+- jika misalnya kita sudah punya kode HTML, dan ingin mengkonversi ke JSX
+- disarankan menggunakan converter sehingga kita tidak perlu lakukan secara manual lagi
+- referensi : https://transform.tools/html-to-jsx
+
+javascript di JSX
+- kadang kadang, terdapat kasus dimana kita ingin mengakses kode javascript di JSX
+- pada kasus ini, kita bisa menggunakan kurung kurawal untuk mengakses kode javascript di JSX
+
+kurung kurawal di JSX
+- penggunaan kurung kurawal di JSX hanya bisa dilakukan pada dua lokasi
+- 1. sebagai teks, seperti pada contoh sebelumnya
+- 2. sebagai nilai attribute pada tag element, misal : <img src={location}>
+
+kurung kurawal double pada JSX
+- pada beberapa attribute, contohnya style. kita bisa menggunakan javascript object sebagai parameter
+- oleh karena itu, kadang sekilas terlihat seperti kurung kurawal double, padahal sebenarnya hanya satu kurung kurawal, dan datanya dalah javascript object
+
+style 
+- css sendiri bukan bagian dari JSX, jika kita ingin membuat style CSS, maka kita perlu buat dalam file CSS, atau langsung di attribute style menggunakan kurung kurawal double 
+- menggunakan style pada JSX, tidak menggunakan attribute class, melainkan className
+- referensi : https://react.dev/reference/react-dom/components/common#applying-css-styles
+
+conditional 
+- saat kita membuat halaman web, sering kali kita menampilkan tampilan berbeda pada kondisi tertentu
+- hal ini juga bisa dilakukan di JSX
+- kita bisa menambahkan kondisi di javascript, dan mengembalikan component yang berbeda berdasarkan kondisi yang diinginkan 
+- contoh pada halaman todolist, dan jika todo nya sudah selesai, maka kita akan coret element teks nya
+
+null component
+- pada kasus tertentu, mungkin ada kondisi dimana kita ingin mengembalikan Component, atau tidak ingin mengembalikan Component apapun
+- kita bisa mengembalikan null untuk menandai bahwa tidak ada Component yang akan kita kembalikan
+
+ternary operator 
+- kadang pada kasus yang lebih sederhana, kita bisa menggunakan ternary operator javascript di JSX
+
+logical AND 
+- dibeberapa kasus yang lebih sederhana, kadang di JSX sering memanfaatkan logical AND di javascript
+- misal jika kondisi terpenuhi maka akan menampilkan, jika tidak maka tidak ditampilkan
+
+collection component
+- kita pasti akan sering menampilkan component yang sama berkali-kali sesuai koleksi data. JSX tidak memiliki fitur perulangan
+- untuk menampilkan multiple component, sama seperti conditional, kita akan memanfaatkan javascript
+- kita bisa menggunakan javascript array untuk mengubah data array menjadi component, misal menggunakan method map() pada array
+- misal sekarang kita akan coba ubah data Todolist yang sebelumnya dibuat menjadi array
+
+component key 
+- jika kita perhatikan di text editor (console browser), mungkin kita akan melihat pesan peringatan "Missing key prop for element in iterator"
+- saat membuat collection component, tiap component diperlukan id (unique, string atau number) menggunakan attribute key
+- hal ini perlu dilakukan agar react bisa mengenali component ketika berubah, seperti posisinya diubah, dihapus atau ditambahkan pada collection
+- biasanya, component key akan diambil dari data, sehingga lebih konsisten
+
+pure function
+- dalam pemrograman, kita mengenal yang namanya pure function
+- referensi : https://en.wikipedia.org/wiki/Pure_function
+- sebuah function bisa disebut sebagai pure function jika memenuhi 2 kriteria berikut :
+1. function akan mengembalikan nilai yang sama untuk nilai parameter yang sama
+2. function tidak memiliki efek samping, tidak ada perubahan pada variabel non local (variabel yang berada diluar function)
+
+pure component
+- react mengasumsikan bahwa setiap component yang kita buat adalah pure function
+- berarti react component yang kita buat harus selalu mengembalikan JSX yang sama dengan input yang sama
+- walaupun sebenarnya kita bisa saja membuat react component yang tidak pure, tapi sangat tidak disarankan, karena setiap memanggil komponen dengan input sama, bisa menghasilkan nilai yang tidak konsisten
+- kita akan coba membuat contoh react component yang tidak pure
+
+membuat pure component
+- lantas bagaimana cara component row dan table mejadi pure component
+- kita harus menghapus efek samping dari component, contohnya kita bisa pindahkan variabel counter (variabel global) enjadi local variabel di Table, dan gunakan props sebagai counternya
+
+dimana kita bisa melakukan efek samping (selain dari pure function)
+- react menyediakan tempat khusus jika kita ingin membuat component yang bisa menghasilkan efek samping
+- efek samping dari component biasanya ditempatkan di event handler, yaitu aksi yang terjadi ketika kita berinteraksi dengan component
+- atau ketika misal component tergantung dengan external system (misal API), maka react akan menyediakan function useEffect()
+- referensi : https://react.dev/reference/react/useEffect
+
+event handler
+- pada html element, kita bisa menambahkan event handler
+- sama juga dengan react component, kita bisa menambahkan event handler pada element di react component
+- ada banyak sekali jenis event handler yang bisa kita tambahkan, kita bisa lihat di halaman referensi react component 
+- referensi : https://react.dev/reference/react-dom/components/common
+
+menambahkan event handler
+- untuk menambahkan event handler, biasanya kita akan tambahkan function sebagai handler nya
+- bisa dalam bentuk anonymous function, arrow function atau membuat function terlebih dahulu di dalam scope componentnya
+- nama function untuk handler biasanya diawali dengan nama 'handle' dan diikuti dengan jenis event handler, misal 'handleClick()', 'handleMouseEnter()', dan lain lain
+
+membaca props di event handler
+- salah satu keuntungan membuat function event handler di dalam component adalah, kita bisa membaca props yang digunakan oleh component tersebut
+
+event handler sebagai props
+- props adalah javascript object
+- kita tahu bahwa javascript object bisa memiliki attribute dengan tipe function
+- oleh karena itu, kita bisa membuat event handler di props
+- saat membuat attribute di props yang berisikan event handler, biasanya nama attributenya diawali dengan 'on', misalnya 'onSmash', 'onHit' dan lain lain
+
+event object
+- saat kita membuat event handler function, kita bisa menambahkan event object sebagai parameter di function tersebut
+- react event object kompatible dengan standard DOM event object
+- referensi : https://react.dev/reference/react-dom/components/common#react-event-object
+- referensi : https://developer.mozilla.org/en-US/docs/Web/API/Event
+
+event propagation
+- event di react component akan selalu disebarkan di component yang ada diatasnya (event propagation)
+- misalnya kita memiliki div dengan event onClick, lalu didalam div terdapat button dengan event onClick
+- ketika button di klik, maka onClick di button akan dipicu dan selanjutnya onClick di Div juga akan dipicu
+- kadang mungkin kita tidak ingin hal itu terjadi, maka kita bisa hentikan proses event propagation tersebut menggunakan method 'stopPropagation()'
+- referensi : https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
+
+prevent default
+- selain menghentikan propagation, hal yang biasa kita lakukan ketika membuat event handler adalah menghentikan default action menggunakan 'preventDefault()'
+- referensi : https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
+- misalnya ketika kita membuat form, ketika dipicu event onClick, kita ingin hentikan default action form submit
+
+side effect 
+- apakah component boleh memiliki side effect?
+- tentu saja boleh, namun biasanya side effect terjadi dikarenakan adanya interaksi dari pengguna melalui event handler
+- misalnya, ketika kita akan membuat form Say Hello, dimana ketika button diklik, kita ingin menampilkan "Hello + nama" pada text
+
+DOM manipulation
+- kode sebelumnya, kita menggunakan DOM manipulation untuk mengubah komponen di react
+- hal ini sebenarnya tidak terlalu direkomendasikan, terutama jika misal data yang memicu perubahan element di component bersumber dari berbagai event handler
+- oleh karena itu, hal yang direkomendasikan adalah menggunakan state
+
+hooks 
+- hooks adalah fitur di react yang bisa digunakan di component
+- ada banyak sekali fitur yang bisa kita gunakan di react hooks
+- referensi : https://react.dev/reference/react/hooks
+
+state 
+- component kadang perlu untuk berubah dikarenakan interaksi yang dilakukan pengguna
+- misalnya, input diklik bisa menaikkan data counter. tombol next bisa mengubah gambar banner yang sedang muncul, dan lain lain
+- component harus bisa mengingat nilai saat ini, seperti counter saat ini, gambar saat ini, dan lain lain
+- di react, memori spesifik di component disebut State
+
+state menggunakan local variabel biasa
+- local variabel biasa di component tidak bisa dilakukan untuk state
+- ketika react melakukan render (menampilkan) component untuk yang kedua kali dan seterusnya, maka semua code komponen akan dieksekusi ulang, oleh karena itu local variabel akan kembali ke nilai awal
+- perubahan di local varibel juga, tidak akan memicu render ulang component
+
+useState
+- untuk membuat state, kita bisa menggunakan function useState(initial)
+- referensi : https://react.dev/reference/react/useState
+- function useState akan mengembalikan array dengan 2 nilai, pertama adalah state nya, dan kedua adalah function untuk mengubah value di state tersebut
+- component yang menggunakan state tersebut, secara otomatis akan dirender
+
+state terisolasi dan private
+- state merupakan data yang terisolasi dan private secara local terhadap component yang menggunakan 
+- artinya, jika me-render component yang sama berkali-kali, maka state dari tiap component tersebut akan terpisah satu sama lain
+
+render
+- sebelum komponen yang kita buat ditampilkan di layar, component harus di render oleh react
+- oleh karena itu, kita perlu tahu bagaimana cara kerja proses react ini ketika menapilkan komponenn yang kita buat
+- terdapat 3 tahapan proses menampilkan komponen di react :
+1. pertama, trigger (memicu) proses render
+2. kedua, melakukan proses render component
+3. ketiga, menempatkan hasil render component ke DOM (Document Object Model)
+
+trigger render
+- pemicu render biasanya terjadi karena dua hal :
+1. pertama adalah inisiasi awal component, yang kita lakukan menggunakan method render()
+2. kedua adalah ketika pemicu perubahan state
+- setiap terjadi perubahan state, secara otomatis react mengirimkan antrian untuk memicu proses render ulang
+
+render component
+- setelah proses trigger render terjadi, react akan memanggil component yang kita buat untuk mencari tahu apa yang harus ditampilkan di layar
+- rendering adalah proses react memanggil component yang kita buat
+- pada proses inisialisasi awal, react akan memanggil root component (paling atas)
+- pada saat proses render ulang, react hanya akan memanggil ulang component yang state nya berubah
+- setelah proses render selesai, react akan melakukan proses commit
+- ketika membuka tampilan hello world, maka akan merender seluruh komponent root (awal), kemudian jika ada komponen yang berubah state nya (counter pertama), maka react akan me render komponen milik counter tersebut saja
+
+commit changes
+- setelah proses render selesai, react akan melakukan proses commit changes (menyimpan perubahan) ke DOM
+- untuk inisialisasi awal, karena baru pertama kali, artinya element di DOM beluma ada, maka react akan menggunakan appendChild() untuk menambahkan element ke DOM
+- sedangkan untuk proses render ulang, react akan mencoba melakukan perubahan seminimal mungkin untuk menyamakan DOM saat ini dengan hasil rendering
+- react hanya akan mengubah element di DOM, jika memang element tersebut berbeda dari hasil rendering
+
+snapshot
+- variabel state sekilas mungkin terlihat seperti variabel javascript biasa
+- tapi sebenarnya, state itu mirip seperti snapshot (kondisi saat itu). mengubah nilai variabel state tidak akan mengubah snapshot, melainkan akan memicu render ulang untuk membuat snapshot baru
+- kita mungkin berpikir bahwa tampilan web, berubah secara langsung karena response dari event yang dilakukan oleh pengguna, seperti klik tombol 
+- namun sebenarnya tidak seperti itu. ketika terjadi perubahan di state, itu akan memicu render ulang, sehingga akan membuat snapshot baru yang ditampilkan dilayar
+
+kesalahan mengubah state
+- paham tentang snapshot ini, akan memberikan gambaran cara pandang kita terhadap data di state
+- berikut adalah contoh kesalahan yang bias dilakukan ketika mengubah state
+- kita berpikir jika mengubah state, saat itu juga data akan berubah, padahal mengubah state sebenarnya hanyalah mentrigger render ulang dengan nilai state yang baru
+
+kenapa counter tidak berubah 3x?
+- hal ini dikarenakan, setCounter() tidak akan mengubah data counter yang ada di snapshot saat ini
+- setCounter() hanya akan melakukan render ulang dengan data dengan data counter yang baru
+- saat kita memanggil setCounter() sebanyak 3x, bukan berarti react akan melakukan render ulang sebanyak 3x. React akan menunggu event handler selesai, jika ada perubahan state maka akan dilakukan render ulang
+- artinya render ulang akan dilakukan sekali saja, walaupun kita mengubah state berkali-kali
+
+state updates
+- melakukan update state berkali-kali, tidak akan mengubah data state di snapshot saat itu, melainkan hanya memicu untuk render ulang dengan data state baru
+- tapi kadang-kadang, kita memang mungkin ada keperluan untuk mengubah data di state yang sama berkali-kali
+- dan jika kita memang ingin mengubah data di state dengan data yang harapannya diubah sebelumnya (walaupun belum di render ulang)
+- kita bisa menggunakan 'lambda' sebagai parameter ketika memanggil function untuk update data state
+
+object di state
+- state bisa menyimpan jenis data javascript apapun, termasuk object
+- tapi kita tidak disarankan untuk mengubah object yang terdapat di state
+- jika kita ingin mengubah object di state, kita disarankan membuat object baru lalu mengubah data di state tersebut dengan object baru
+- kalau kita mencoba untuk mengubah object di state saat ini, maka tidak akan mentrigger render ulang
+
+immutable data
+- saat kita membuat data di state, kita harus memperlakukan data di state sebagai immutable data (tidak bisa berubah)
+- artinya data di state hanya digunakan untuk dibaca (read only)
+- jika kita ingin mengubah data di state, maka kita harus ubah menggunakan data baru, yang artinya data lama tidak dimodifikasi
+- ini adalah praktek yang biasa dilakukan di react. walaupun pada kenyataannya object di javscript tidak immutable
+- hal ini direkomendasikan agar kita tidak salah mengubah data langsung, padahal kita tahu bahwa mengubah data tidak akan memicu proses render ulang
+- untung nya di javascript kita bisa menggunakan spread syntax untuk membantu mengcopy attribute di object
+
+nested object
+- kadang ada kasus kita menggunakan nested object
+- sama seperti sebelumnya, kita disarankan untuk selalu membuat object baru ketika mengubah state
+- kadang memang menyulitkan ketika nested object nya terlalu besar, oleh karena itu disarankan tidak terlalu dalam membuat nested object nya
+
+immer library 
+- salah satu library yang sering digunakan ketika develop aplikasi menggunakan react adalah immer
+- immer adalah library yang digunakan untuk membuat immutable object dari object saat ini
+- menggunakan function useMemo(callback, ['dependencies]) immer akan lebih mudah dibandingkan 'menggunakan spread syntax, terutama untuk object yang kompleks dan nested
+- referensi : https://github.com/immerjs/immer
+
+use immer library
+- library immer juga bisa diintegrasikan dengan react state dengan mudah
+- kita bisa menggunakan library Use-Immer
+- referensi : https://github.com/immerjs/use-immer
+- kita cukup mengganti 'useState()' menjadi 'useImmer()'
+- dan untuk mengupdate object di state, kita bisa menggunakan function sebagai parameter di Update method nya
+
+menambah libary immer
+- npm install immer use-immer
+
+array di state
+- sama seperti object, array di state juga harus kita perlakukan sebagai immutable data
+- artinya operasi menambah data, mengubah atau menghapus data di array, kita harus membuat array baru untuk di update ke state
+- hal ini memang agak menyulitkan, namun dengan bantuan library immer, hal ini jadi lebih sederhana
+
+sharing state
+- kadang, kita ingin membuat state untuk beberapa component yang selalu berubah bersama-sama, atau sederhananya adalah sharing (berbagi) state
+- untuk melakukan ini, kita harus mengubah lokasi state dari component-component itu, ke parent component mereka, lalu kirim state nya melalui props
+- misal, pada form task sebelumnya, kita akan buat 2 child component, component untuk task form nya, dan componen untuk task list nya
+- kita akan share state nya dari task ke TaskForm dan TaskList melalui props
+
+mempertahankan state
+- state terisolasi antar component, react melacak state mana yang dimiliki oleh component berdasarkan tempatnya di struktur UI
+- kita bisa mengatur, kapan kita ingin mempertahankan state, kapan kita akan mereset state
+- state sendiri tidak di simpan ke dalam component. State itu di simpan di react, sedangkan ketika kita menggunakan state di component, maka sebenarnya kita akan menggunakan state yang ada di React
+- cara react bisa tahu state mana yang digunakan oleh component adalah, melihat posisi component di struktur UI
+
+posisi component
+- react menyimpan state sesuai dengan posisi component
+- ketika posisi component berubah, misal hilang dari tampilan layar
+- secara otomatis state dari component tersebut akan dihapus dari react
+- misal, kita akan membuat Component Counter bisa dihilangkan
+- ketika component tersebut dihilangkan dari tampilan, maka secara otomatis state nya juga akan hilang
+
+component sama, di posisi sama
+- jika terdapat kasus kita menampilkan component yang sama
+- tapi secara struktur UI, dia berdasa di posisi yang sama
+- maka state akan dipertahankan oleh react, yang artinya tidak akan dihapus
+- hal ini mungkin akan membingungkan, tapi kita harus mengerti hal ini, karena react akan menyimpan informasi state mengikuti posisi component, jika componentnya sama, dan posisinya sama, maka state akan dipertahankan
+
+kenapa state nya masih sama
+- hal ini terjadi karena secara struktur UI, posisi component ada di posisi yang sama
+- jika posisi Component dan jenis Component nya sama, maka secara otomatis react akan mempertahankan state
+- kecuali posisinya berubah atau component nya berbeda, maka react akan menghapus state nya
+
+reset state
+- bagaimana jika pada kondisi tertentu, kita memang ingin melakukan reset state, tidak mau mempertahankan state nya?
+- ada beberapa cara untuk melakukan reset state
+- salah satunya yaitu kita bisa menghapus component dari tampilan UI
+- ketika componentnya hilang dari tampilkan UI, secara otomatis state akan ikut hilang
+
+cara lain : mengubah dengan component lain
+- selain menghapus component, kita juga bisa mengubah Component dengan Component lain di posisi yang sama
+- ketika posisi yang sama masih ada di struktur UI, tapi componentnya berbeda, secara otomatis state nya juga akan di reset
+- misalnya, sebelumnya kita menampilkan component counter, lalu kita ubah menjadi element paragraph. Secara otomatis state di component counter akan dihapus
+
+cara lain : mengubah posisi component
+- karena react akan menyimpan state sesuai dengan component dan posisinya
+- artinya jika posisi component diubah atau di pindahkan, secara otomatis state juga akan di reset
+
+cara lain : posisi component berbeda
+- selain mengubah posisi, kita juga bisa jika component sama berada di posisi yang berbeda, secara otomatis state nya juga akan berbeda
+- ini mungkin akan membingungkan, karena secara DOM mungkin posisinya sama, tapi secara posisi di component berbeda
+
+cara lain (direkomendasikan) : menggunakan key
+- cara yang umum biasanya digunakan untuk mereset state, yaitu menambahkan key pada component
+- saat component yang sama ditampilkan di posisi yang sama, jika key nya berbeda, maka akan dianggap component yang berbeda. Dengan demikian, secara otomatis state akan di reset
+- ini mungkin cara yang paling direkomendasikan, dibandingkan harus mengubah-ubah posisi komponen
+
+hook state reducer
+- react memiliki fitur hook state lain, yaitu reducer, dengan menggunakan 'useReducer()'
+- referensi : https://react.dev/reference/react/useReducer
+
+reducer
+- pada kasus kita membuat component yang memiliki banyak proses update State, kadang menyulitkan untuk maintain-nya, karena terlalu banyak event handler yang harus dibuat juga untuk mengubah data state nya
+- pada kasus seperti ini, kita bisa mengkonsolidasi semua logic untuk update state di sebuah function diluar component, atau kita sebut sebagai Reducer
+- kita akan coba membuat component dengan state yang banyak di update tanpa menggunakan reducer terlebih dahulu, nanti kita akan ubah menjadi menggunakan reducer
+
+menggunakan reducer
+- implementasi akan diterapkan pada NoteApp (masih menggunakan function useMemo('callback, [dependencies]) cara manual)'
+- kita bisa lihat terdapat 3 aksi untuk update notes, ada add, update, dan delete. Dan itu semua disimpan didalam function yang berbeda-beda dan dari event handler yang berbeda-beda
+- menggunaakn reducer agak sedikit berbeda dengan mengubah state secara langsung. alih-alih memberi tahu ke react apa yang harus dilakukan dengan mengubah state, namun dengan menggunakan reducer kita perlu memberi tahu react apa yang sudah dilakukan oleh pengguna (action)
+- sehingga implementasi logic dari action nya dilakukan di tempat yang terpisah
+
+membuat reducer function
+- reducer function adalah kode dimana kita menyimpan logic kita
+- reducer function memiliki dua parameter, state saat ini, dan action object
+- return function nya adalah state selanjutnya
+
+menggunakan immer
+- library useImmer juga mendukung reducer, sehingga kita bisa lebih mudah karena kita bisa mengedit data draft dibanding membuat data baru dari state yang ada
+- kita bisa menggunakan method 'useImmerReducer()'
+
+context hooks 
+- selain state hooks, yang menggunakan useState() dan useReducer()
+- masih ada hooks yang lainnya, salah satunya adalah context hooks yang menggunakan useContext()
+- referensi : https://react.dev/reference/react/useContext
+
+context
+- biasanya, digunakan untuk mengirim informasi dari parent component ke child component, kita bisa menggunakan props
+- tapi mengirim informasi melalui banyak component, mungkin akan membuat kita terlalu sulit melakukan maintain props nya
+- atau, misal saja kita punya satu informasi yang digunakan oleh banyak component, maka mengirim ke semua component juga akan terlalu sulit
+- context membolehkan parent component membuat informasi dan bisa digunakan oleh component manapun dibawah nya (child component), tidak peduli seberapa dalam component di dalamnya
+- banyak juga yang bilang jika context adalah global state
+
+membuat context
+- untuk membuat context, kita bisa menggunakan function createContext()
+- referensi : https://react.dev/reference/react/createContext
+- selanjutnya, setelah membuat context, untuk menggunakan context tersebut, kita bisa menggunakan useContext()
+- referensi : https://react.dev/reference/react/useContext
+- untuk mengubah data di context, kita bisa gunakan provider yang terdapat di context. secara otomatis semua component dibawahnya akan mendapat nilai yang sesuai yang kita ubah di context provider
+- referensi : https://react.dev/reference/react/createContext#provider
+
+context dan state
+- untuk mengubah context, kita harus menggunakan provider
+- hal ini karena context itu hanya bisa diakses oleh component dibawahnya, tidak bisa component diatasnya atau yang sejajar
+- selain itu, component dibawahnya hanya bisa membaca data dari context, tidak bisa mengubah data di context
+- oleh karena itu, jika kita ingin membuat data di context bisa diubah dengan mudah, kita bisa menggunakan bantuan state (yang boleh merubah data context, adalah parent)
+
+sebelum menggunakan context
+- context mungkin lebih mudah digunakan dibanding mengirim semua data state via props
+- tapi jangan terlalu sering menggunakan context sampai ke hal yang sederhana
+- gunakan context jika memang perlu, jika masih sederhana, bisa gunakan state dan props dulu, jika sudah terlalu kompleks dan terlalu dalam mengirim props nya, baru bisa diubah ke context
+
+context dan reducer
+- sama seperti state, reducer juga kita bisa integrasikan dengan context
+- pada kasus ketika kita membuat component yang sudah kompleks, dan menggunakan reducer, kita bisa mengirim semua state dan reducer menggunakan context ke child component
+- sehingga lebih mudah dibanding menggunakan props
+- misal kita coba modifikasi halaman notes yang sebelumnya sudah kita buat
+
+pindahkan event handler
+- karena method Dispatch() ada di context, jadi kita tidak perlu mengirim event handler lagi dari parent component ke child component melalui props
+- kita bisa langsung pindahkan ke child component, karena child component bisa mengakses Dispatch function
+
+ref hooks
+- fitur hooks yang lain selain state dan context, adalah ref hooks
+- ketika kita ingin component mengingat informasi, tapi tidak mau memicu render ulang, maka kita bisa gunakan ref (sama seperti state, namun tidak memicu render ulang)
+- menggunakan ref hooks bisa dengan method useRef()
+- referensi : https://react.dev/reference/react/useRef
+- function useRef() akan mengembalikan object yang memiliki attribute current, dimana attribute current berisi value yang dipegang oleh ref
+- perbedaan ref dan state :
+
+|   Ref                                                         | State
+------------------------------------------------------------------------------------------------------------------------------
+| 1. useRef(initial mengembalikan object {current.initial})     | 1. useState(initial mengembalikan [value, setValue])
+| 2. tidak memicu render ulang ketika diubah                    | 2. memicu render ulang ketika diubah 
+| 3. mutable, bisa dimodifikasi dan diubah current value nya    | 3. immutable, kita hanya bisa mengubah menggunakan function setValue
+| 4. tidak direkomendasikan untuk membaca dan menulis curent    | 4. bisa dibaca kapanpun, tapi tiap render akan memiliki snapshot masing-masing
+| value ketika proses rendering. lebih cocok dibaca atau diubah | 
+| pada event handler                                            | 
+
+manipulasi DOM dengan ref
+- react secara otomatis akan mengupdate DOM ketika melakukan render ulang, jadi kita tidak perlu memanipulasi DOM secara manual lagi
+- tapi, kadang kita perlu mengakses DOM secara manual, contoh memindahkan fokus ke salah satu element, atau scroll ke element tertentu, dan lain lain
+- sayangnya, tidak ada cara melakukan hal ini menggunakan react, jadi kita perlu tangani hal ini secara manual
+- salah satu caranya kita menggunakan ref menuju ke DOM element
+- caranya, pada element nya, kita bisa tambahkan attribute Ref
+
+ref untuk component
+- ref hanya bisa digunakan di DOM element, kita tidak bisa menggunakan ref di Component
+- jika kita ingin menambahkan ref ke component, maka attribute current akan bernilai null
+
+mengakses component DOM element
+- karena component tidak bisa dijadikan sebagai ref, oleh karena itu, jika kita ingin menggunakan ref untuk component, kita bisa menggunakan props
+- kita bisa membuat props ref yang kita isi Ref
+- props ref bisa kita gunakan pada DOM element di dalam component tersebut
+
+effect hooks
+- hooks selanjutnya adalah effect hooks
+- beberapa component mungkin butuh untuk berkomunikasi dengan external system, misal berkomunikasi dengan non react component, berkomunikasi dengan server dan lain lain
+- effect hooks memungkinkan kita membuat kode yang dijalankan setelah proses render, sehingga kita bisa berkomunikasi dengan system diluar react
+- effect terjadi setelah proses render selesai
+- kita bisa menggunakan 'useEffect()' untuk membuat Effect
+- referensi : https://react.dev/reference/react/useEffect
+
+kenapa tidak cukup event handler ? (untuk menangani komunikasi diluar system react)
+- biasanya kita tahu bahwa component itu harus pure, dan tidak memiliki efek samping
+- untuk kode yang memiliki efek samping, biasanya kita gunakan event handler 
+- namun, kadang ada kebutuhan kita memang perlu membuat component yang memiliki efek samping ketika render
+- misal ketika component di render, kita ingin mengambil data dari server, sehingga bisa menyebabkan isi component berubah (efek samping) sesuai dengan response server
+- disinilah effect hooks diperlukan
+
+infinite loop
+- secara default, effect akan dieksekusi seteah proses render 
+- oleh karena itu, kita perlu berhati-hati, karena jika di dalam effect kita mengubah state, maka bisa terjadi infinite loop yang menyebabkan proses render berulang secara terus menerus tanpa henti
+
+effect clean up
+- pada beberapa kasus, mungkin kita butuh melakukan sesuatu setelah eksekusi effect selesai dilakukan
+- seperti misal di Try Catch, terdapat finally
+- di effect terdapat proses yang namanya clean up, clean up sendiri akan dieksekusi setelah proses effect selesai
+- caranya cukup mudah, kita tinggal return kan Closure Function di dalam effect
+- clean up akan dieksekusi sebelum effect selanjutnya di eksekusi, atau component di hilangkan
+
+effect dependencies
+- secara default, effect akan dieksekusi setiap selesai proses render
+- artinya jika proses render dilakukan berkali-kali, effect akan dieksekusi juga berkali-kali setelah proses render selesai
+- hal ini menjadikan kita harus melakukan pengecekan secara manual seperti materi sebelumnya, jika tidak ingin kode effect dijalankan berkali-kali
+- useEffect() memiliki parameter kedua yaitu Depencencies
+- kita bisa mengisi dependencies dengan array daru state, dimana artinya effect hanya akan di eksekusi jika state tersebut berubah, jika tidak berubah maka effect tidak akan dieksekusi 
+- hal ini mungkin lebih mudah dibandingkan manual melakukan if else
+
+empty dependencies
+- kadang-kadang, mungkin kita hanya ingin memanggil effect sekali saja setelah pertama kali component di render, setelah itu kita tidak mau memanggil effect lagi, bahkan jika terjadi render ulang
+- pada kasus seperti itu, kita bisa gunakan empty array sebagai dependencies, maka effect hanya akan dipanggil sekali saja setelah render pertama kali, selanjutnya tidak akan dipangil lagi
+
+async code di Effect
+- kadang, saat berhubungan dengan system external, misal memanggil API, biasanya kita akan membuat kode async await
+- sayangnya, effect tidak mendukung async function, oleh karena itu jika kita bisa menggunakan promise secara langsung, kita bisa langsung saja gunakan promise, tanpa menggunakan async await
+- namun, jika kita memang mau menggunakan async await, maka kita harus buat function yang nanti dipanggil di useEffect()
+- misalnya, kita akan coba ubah kode sebelumnya menjadi kode async await ketika mengambil data products
+
+jangan gunakan effect (terlalu banyak di react)
+- effect hook adalah cara di luar dari yang biasa dilakukan di react
+- effect memungkinkan kita keluar dari kebiasaan di react, dan memungkinkan component kita berinteraksi dengan external system seperti non react component, dan lain-lain
+- jika tidak ada interaksi dengan external system, maka sebaiknya jangan gunakan effect
+- meminimalisir penggunaan effect akan membuat kode kita mudah untuk dibaca, cepat dieksekusi dan minim error
+
+jangan gunakan effect untuk inisialisasi aplikasi
+- kadang beberapa proses dilakukan diawal sebelum halaman ditampilkan
+- pada kasus ini, gunakan saja kode javascript langsung diluar react
+- jangan gunakan effect untuk melakukan inisialisasi aplikasi
+- hal ini karena effect akan dieksekusi setelah render (setelah ditampilkan), dan akan di eksekusi ulang jika terjadi render ulang (bisa berkali-kali)
+
+jangan gunakan effect untuk mengubah data di server
+- jika terdapat logic di effect melakukan perubahan data di server, perlu hati-hati, karena bisa saja effect dieksekusi berkali-kali karena proses render ulang
+- oleh karena itu, tidak direkomendasikan untuk menggunakan effect untuk mengubah data di server
+- gunakan event handler jika kita ingin mengubah data di server, sehingga jelas kapan perubahan terjadi
+- menggunakan effect bisa menyebabkan perubahan data di server terjadi berkali-kali karena render ulang component
+
+memoization
+- memoization adalah teknik optimasi untuk mempercepat program komputer, dengan cara menyimpan data secara sementara dari hasil kalkulasi (yang biasanya berat), sehingga tidak perlu dikalkulasi ulang
+- ini adalah bagian dari performance hooks, dimana kita bisa menggunakan function 'useMemo(callback, [dependencies])'
+- referensi : https://react.dev/reference/react/useMemo
+- ini cocok untuk kasus misal kita perlu memanggil kode yang berat, dan hasilnya selalu sama, dibandingkan kita panggil terus-terusan setiap proses render, lebih kita lakukan sekali saja, dan pada proses pemanggilan berikutnya, kita cukup kembalikan hasil yang pertama
+
+contoh penggunaan memo
+- misal pada aplikasi notes, kita ingin tambahkan proses untuk mencari note
+- jika misal pengguna melakukan pencarian dengan value yang sama, dibanding kita lakukan pencarian ulang, kita bisa kembalikan hasil yang sama saja seperti sebelumnya
+
+custom hooks
+- react secara default sudah memiliki banyak hooks untuk kita gunakan, agar mempermudah membuat aplikasi menggunakan react
+- namun, kita juga bisa membuat hooks secara manual jika kita mau
+- membuat hooks (manual) biasanya menggunakan function dengan awalan "use"
+- contoh, kita akan membuat hooks untuk mendeteksi apakah sedang online atau offline
+
+referensi react :
+- https://react.dev/reference/react

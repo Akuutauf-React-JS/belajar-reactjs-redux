@@ -1,0 +1,102 @@
+global state management
+- sebelumnya, kita sudah belajar tentang state management di react, untuk manajemen data di dalam komponen
+- kita juga sudah belajar tentang context, yang digunakan untuk manajemen data dari komponen parent ke child
+- lantas bagaimana jika ada kebutuhan membuat data (state) yang memang ingin bisa diakses secara global? yang artinya bisa diakses dari manapun, komponen manapun, bahkan jika berbeda parent sama sekali. layaknya global state manajemen
+- jawabannya, kita butuh bantuan sebuah tempat untuk menyimpan state tersebut, atau kita sebut sebagai store
+
+redux
+- redux adalah store library untuk menyimpan state
+- redux memperbolehkan kita untuk menyimpan state dan diakses dari komponen atau halaman manapun
+- ini menjadikan manajemen state di multi komponen akan jauh lebih mudah menggunakan redux
+- redux adalah project opensource yang populer untuk global state management 
+- referensi : https://redux.js.org/
+
+membuat project
+- npm create vite@latest belajar-reactjs-redux -- --template react
+- update react ke versi terbaru atau minimal versi 19
+- npm install react-router
+
+menambahkan redux
+- npm install @reduxjs/toolkit
+- npm install react-redux
+
+setup
+- saat ingin menggunakan redux, kita harus membuat provider terlebih dahulu
+- caranya aplikasi yang kita buat, bisa kita bungkus dalam komponen provider milik redux
+- selanjutnya ada parameter wajib kita buat, yaitu store
+
+store
+- store merupakan tempat dimana data state disimpan 
+- saat menggunakan redux, kita perlu membuat store terlebih dahulu
+- nanti data state yang kita buat, akan kita masukkan kedalam store tersebut
+- untuk membuat store, kita bisa menggunakan function configureStore()
+- referensi : https://redux-toolkit.js.org/api/configureStore
+
+state
+- setelah kita membuat store, kita bisa mulai membuat state di store
+- namun integrasi antara store dan state itu dilakukan via reducer
+- redux menggunakan konsep slice yang merupakan kombinasi dari state dan reducer
+- untuk membuat slice, kita bisa menggunakan function createSlice()
+- referensi : https://redux-toolkit.js.org/api/createSlice
+- saat kita membuat state, kita perlu tentukan initial value (nilai awalnya)
+- state di dalam redux tidak bisa dirubah, namun kita bisa ubah data state menggunakan reducer
+- sehingga ketika kita ingin membuat slice, maka kita perlu tentukan nama slice, initial state, dan reducer
+- initial state mencakup: string, number, object, array dan lain-lain
+
+meregistrasikan reducer
+- setelah kita membuat state menggunakan slice, kita perlu registrasikan reducer dari slice tersebut
+- saat ini mungkin kita belum membuat reducer
+
+menggunakan state 
+- untuk menggunakan state yang ada di store (state global), kita bisa menggunakan function useSelector()
+- referensi : https://react-redux.js.org/api/hooks#useselector
+- kita bisa tentukan state mana yang akan kita gunakan dengan menyebutkan nama state nya (state global / store) yang sama dengan nama di slice
+
+immutable state
+- saat kita menggunakan state manajemen di react, kita diberi function untuk mengubah state nya
+- sedangkan di redux, hal ini tidak ada
+- kita tidak diberi function untuk mengubah nilai  di state
+- lantas bagaimana jika kita ingin mengubah data di state (ketika menggunakan store/state global)?
+- maka kita harus menggunakan action
+
+action
+- action di redux sebenarnya adalah reducer, namun cara membuatnya lebih mudah
+- kita bisa membuat action dengan cara membuat semua function reducer di slice
+- secara otomatis nanti kita bisa menggunakan nama function reducer sebagai action di redux
+
+immer library
+- seperti yang kita tahu, bahwa react menyarankan kita harus membuat data immutable di state
+- saat kita menggunakan redux, secara otomatis redux menggunakan immer library ketika menggunakan reducer
+- dengan begitu, kita tidak perlu lagi melakukan copy data secara manual, karena hal itu sudah dilakukan otomatis oleh immer library
+
+memanggil action
+- setelah kita membuat action menggunakan reducer, selanjutnya kita bisa memanggil action tersebut menggunakan dispatch, sama seperti reducer biasanya
+- untuk membuat dispatch, kita bisa menggunakan function useDispatch()
+- referensi : https://react-redux.js.org/api/hooks#usedispatch
+- selanjutnya kita bisa gunakan action yang sebelumnya sudah kita buat untuk menentukan reducer mana yang akan kita panggil
+
+action parameter
+- pada beberapa kasus, mungkin kita ingin mengirimkan parameter di action 
+- semua parameter yang kita kirim di action, secara otomatis dia akan disimpan di attribute payload di parameter ke 2 reducer
+- misal ketika kita kirim 'dispatch(increment(2))', maka di reducer akan menerima (state, action). Dimana action akan berisi type: "counter/increment", dan payload : 2
+- kita bisa menggunakan tipe data apapun pada payload, dari tipe data sederhana seperti number, string, atau tipe data kompleks seperti array, object dan lain-lain
+
+global state
+- state yang kita simpan di store, itu bisa diakses secara global dari komponen manapun
+- untuk membuktikan bahwa state di store itu bersifat global, kita akan coba menampilkannya di beberapa counter
+
+selector
+- sebelumnya, kita sudah tahu untuk mendapatkan data state, kita bisa menggunakan selector
+- kadang-kadang, kita ingin membuat action yang digunakan untuk mendapatkan data di state. Namun sayangnya bukan seperti itu cara reducer bekerja
+- reducer bukan digunakan untuk mendapatkan data di state
+- untuk mendapatkan data yang lebih detail misalnya, kita bisa membuat selector secara manual
+- cara membuatnya sama ketika menggunakan Actions
+
+selector dengan parameter
+- selector mirip seperti action, kita bisa tambahkan parameter
+- misal kita akan tambahkan selector baru dengan menambah parameter kali nya yang bisa dikirim oleh pengguna
+
+perbedaan action dan selector
+- action untuk memanipulasi data state
+- sedangkan selector untuk mengambil data state (get)
+
