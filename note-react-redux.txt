@@ -100,3 +100,9 @@ perbedaan action dan selector
 - action untuk memanipulasi data state
 - sedangkan selector untuk mengambil data state (get)
 
+buat state untuk todolist di store
+- hal pertama yang kita buat adalah, state untuk todolist di store
+- todolist ini adalah array yang berisikan object todo
+- object todo akan berisi dua attribute, id dan name
+- kita akan buat dalam file 'src/'
+
